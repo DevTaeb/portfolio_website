@@ -74,8 +74,8 @@ export default function Portfolio() {
           <div className="hidden md:block">
             <div style={{ border: '1px solid var(--border)', padding: '1.5rem', background: 'var(--card)', fontFamily: 'var(--font-mono-custom)', fontSize: '0.75rem' }}>
               <div className="space-y-1 flex justify-center">
-                <img src="./client/src/assets/images/avatar.jpg" alt="avatar" height={'70%'} width={'70%'}
-                  style={{ border: '3px solid var(--border)', borderRadius: '50%', }}
+                <img src="./client/src/assets/images/professional_avatar.jpg" alt="avatar" height={'150px'} width={'150px'}
+                  style={{ border: '3px solid var(--border)', borderRadius: '10%', }}
                 />
               </div>
             </div>
