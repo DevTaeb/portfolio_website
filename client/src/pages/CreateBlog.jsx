@@ -12,7 +12,7 @@ const TAG_OPTIONS = [
 export default function CreateBlog() {
   const navigate = useNavigate()
 
-  const [form, setForm] = useState({
+  let [form, setForm] = useState({
     title: '',
     excerpt: '',
     content: '',
