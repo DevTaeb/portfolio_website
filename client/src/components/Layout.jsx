@@ -118,10 +118,10 @@ export default function Layout({ children }) {
       <footer style={{ borderTop: '1px solid var(--border)' }} className="py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <span style={{ fontFamily: 'var(--font-mono-custom)', fontSize: '0.7rem', color: 'var(--muted-foreground)', letterSpacing: '0.1em' }}>
-            © 2026 TAEB EBIETANMI — BUILT WITH REACT + VITE
+            © 2026 TAEB EBIETANMI
           </span>
           <div className="flex gap-6">
-            {[['Github', 'https://github.com/ebietanmi'], ['LinkedIn', 'https://linkedin.com/in/ebietanmi'], ['Twitter', 'https://x.com/ebietanmi']].map((s) => (
+            {[['Github', 'https://github.com/devtaeb'], ['LinkedIn', 'https://linkedin.com/in/ebietanmi'], ['Twitter', 'https://x.com/ebietanmi']].map((s) => (
               <a key={s[0]} href={`${s[1]}`} style={{ fontFamily: 'var(--font-mono-custom)', fontSize: '0.7rem', color: 'var(--muted-foreground)', textDecoration: 'none', letterSpacing: '0.08em', transition: 'color 0.15s' }}
                 onMouseEnter={e => (e.currentTarget.style.color = 'var(--primary)')}
                 onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted-foreground)')}

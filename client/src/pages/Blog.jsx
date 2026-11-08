@@ -6,19 +6,33 @@ const recentPosts = [
     id: 1,
     title: 'Why I Rewrote Our Cache in Rust',
     slug: 'cache-rewrite-rust',
-    date: '2026-07-14',
+    year: '2026-07-14',
     readTime: '8 min',
     tags: ['Rust', 'Performance', 'Infrastructure'],
     excerpt: "After hitting a wall with Go's GC pauses at 2M ops/sec, we rewrote the hot path in Rust. Here's what we learned about the migration, the wins, and the surprising pitfalls.",
+    content: "After hitting a wall with Go's GC pauses at 2M ops/sec, we rewrote the hot path in Rust. Here's what we learned about the migration, the wins, and the surprising pitfalls. Further explained here",
   },
   {
     id: 2,
     title: 'CRDTs in Production: Lessons After 18 Months',
     slug: 'crdts-in-production',
-    date: '2026-06-02',
+    year: '2026-06-02',
     readTime: '12 min',
     tags: ['Distributed Systems', 'CRDTs', 'TypeScript'],
     excerpt: 'Conflict-free replicated data types promise a lot. Reality is messier. We shipped a CRDT-based sync layer to 50k users and want to share what actually happened.',
+    content: "After hitting a wall with Go's GC pauses at 2M ops/sec, we rewrote the hot path in Rust. Here's what we learned about the migration, the wins, and the surprising pitfalls. Further explained here",
+
+  },
+  {
+    id: 3,
+    title: 'CRDTs in Production: Lessons After 18 Months',
+    slug: 'crdts-in-production',
+    year: '2026-06-02',
+    readTime: '12 min',
+    tags: ['Distributed Systems', 'CRDTs', 'TypeScript'],
+    excerpt: 'Conflict-free replicated data types promise a lot. Reality is messier. We shipped a CRDT-based sync layer to 50k users and want to share what actually happened.',
+    content: "After hitting a wall with Go's GC pauses at 2M ops/sec, we rewrote the hot path in Rust. Here's what we learned about the migration, the wins, and the surprising pitfalls. Further explained here",
+
   }
 ]
 export default function Blog() {
@@ -40,8 +54,12 @@ export default function Blog() {
     fetchPosts()
   }, [])
 
-  const allTags = Array.from(new Set(posts.flatMap(p => p.tags)))
-  filtered = selectedTag ? posts.filter(p => p.tags.includes(selectedTag)) : posts
+  const allTags = Array.from(new Set(posts.length > 0 ? posts.flatMap(p => p.tags) : recentPosts.flatMap(p => p.tags)))
+  filtered = selectedTag ?
+    posts.length < 1 ?
+      recentPosts.filter(p => p.tags.includes(selectedTag)) :
+      posts.filter(p => p.tags.includes(selectedTag)) :
+      posts.length > 0 ? posts : recentPosts;
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">
       <div className="mb-12">
@@ -96,10 +114,10 @@ export default function Blog() {
       </div>
 
       <div style={{ borderTop: '1px solid var(--border)' }}>
-        {filtered.length < 1 ? (recentPosts.map((post, i) => (
+        {filtered.map((post, i) => (
           <article
             key={post.id}
-            onClick={() => navigate(`/blog/${post.id}`)}
+            onClick={() => navigate(`/blog/${post.id}`, { state: post })}
             style={{
               borderBottom: '1px solid var(--border)',
               padding: '1.5rem 0.75rem',
@@ -128,50 +146,12 @@ export default function Blog() {
               <p style={{ fontSize: '0.82rem', color: 'var(--secondary-foreground)', lineHeight: 1.6 }}>{post.excerpt}</p>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontFamily: 'var(--font-mono-custom)', fontSize: '0.65rem', color: 'var(--muted-foreground)' }}>{post.date}</div>
-              <div style={{ fontFamily: 'var(--font-mono-custom)', fontSize: '0.65rem', color: 'var(--muted-foreground)', marginTop: '0.25rem' }}>{post.readTime}</div>
-            </div>
-          </article>
-        ))) :  
-        filtered.map((post, i) => (
-          <article
-            key={post.id}
-            onClick={() => navigate(`/blog/${post.id}`)}
-            style={{
-              borderBottom: '1px solid var(--border)',
-              padding: '1.5rem 0.75rem',
-              cursor: 'pointer',
-              display: 'grid',
-              gridTemplateColumns: '2.5rem 1fr 90px',
-              gap: '1rem',
-              alignItems: 'start',
-              transition: 'background 0.15s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'var(--card)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-          >
-            <span style={{ fontFamily: 'var(--font-mono-custom)', fontSize: '0.65rem', color: 'var(--muted-foreground)', paddingTop: '3px', textAlign: 'right' }}>
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <div>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {post.tags.map(tag => (
-                  <span key={tag} style={{ fontFamily: 'var(--font-mono-custom)', fontSize: '0.6rem', letterSpacing: '0.08em', color: 'var(--primary)', textTransform: 'uppercase' }}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <h2 style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '-0.01em', marginBottom: '0.5rem', lineHeight: 1.3 }}>{post.title}</h2>
-              <p style={{ fontSize: '0.82rem', color: 'var(--secondary-foreground)', lineHeight: 1.6 }}>{post.excerpt}</p>
-            </div>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontFamily: 'var(--font-mono-custom)', fontSize: '0.65rem', color: 'var(--muted-foreground)' }}>{post.date}</div>
+              <div style={{ fontFamily: 'var(--font-mono-custom)', fontSize: '0.65rem', color: 'var(--muted-foreground)' }}>{post.year}</div>
               <div style={{ fontFamily: 'var(--font-mono-custom)', fontSize: '0.65rem', color: 'var(--muted-foreground)', marginTop: '0.25rem' }}>{post.readTime}</div>
             </div>
           </article>
         ))}
       </div>
-
       {filtered.length === 0 && (
         <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--muted-foreground)', fontFamily: 'var(--font-mono-custom)', fontSize: '0.8rem' }}>
           No posts found for &quot;{selectedTag}&quot;

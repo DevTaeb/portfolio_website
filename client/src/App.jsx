@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import AdminDashboard from './pages/AdminDashboard'
 import CreateProject from './pages/CreateProject'
 import CreateBlog from './pages/CreateBlog'
+import { ViewBlog } from './pages/ViewBlog'
 
 function AdminLayout({ children }) {
   return (
@@ -31,6 +32,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout><Portfolio /></Layout>} />
         <Route path="/blog" element={<Layout><Blog /></Layout>} />
+        <Route path= "/blog/:id" element={<Layout><ViewBlog /></Layout>} />
         <Route path="/login" element={<Layout><Login /></Layout>} />
         <Route
           path="/admin"

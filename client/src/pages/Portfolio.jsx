@@ -34,8 +34,6 @@ export default function Portfolio() {
     }
     fetchProjects()
   }, [])
-
-
   return (
     <div>
       <section className="max-w-6xl mx-auto px-6 pt-20 pb-16">
