@@ -11,4 +11,6 @@ logs/
 *.log
 .claude-replay.*
 .tmp-*
-.pnpm-lock.yaml*
+pnpm-lock.yaml*
+.gitignore
+
